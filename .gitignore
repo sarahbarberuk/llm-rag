@@ -39,3 +39,9 @@ migrations/
 # IDE files
 .idea/
 *.swp
+
+
+# App-specific stuff
+# contents of vectordb folder
+vectordb/*
+!vectordb/.gitkeep
