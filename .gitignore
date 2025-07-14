@@ -1,0 +1,41 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# VS Code settings (optional)
+.vscode/
+
+# Environment variables
+.env
+.env.*
+
+# macOS & Linux system files
+.DS_Store
+Thumbs.db
+
+# Test cache
+.pytest_cache/
+.coverage
+
+# Pydantic schema cache
+*.json
+
+# Logs
+*.log
+
+# Migrations (if using something like Alembic)
+migrations/
+
+# MyPy / type checking
+.mypy_cache/
+
+# IDE files
+.idea/
+*.swp
