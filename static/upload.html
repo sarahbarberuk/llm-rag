@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ask My Docs</title>
+  </head>
+  <body>
+    <h1>📤 Upload PDFs</h1>
+    <form id="uploadForm">
+      <input type="file" name="files" accept=".pdf" multiple required />
+      <button type="submit">Upload</button>
+    </form>
+
+    <p id="uploadStatus"></p>
+
+    <hr />
+
+    <h1>🧠 Ask a Question</h1>
+    <form id="queryForm">
+      <input
+        type="text"
+        id="questionInput"
+        placeholder="Enter your question..."
+        required
+      />
+      <button type="submit">Ask</button>
+    </form>
+
+    <h2>💬 Answer:</h2>
+    <p id="answer"></p>
+
+    <h3>📚 Sources:</h3>
+    <ul id="sources"></ul>
+
+    <script>
+      console.log("✅ JS is running");
+      // Handle PDF upload
+      const uploadForm = document.getElementById("uploadForm");
+      const uploadStatus = document.getElementById("uploadStatus");
+
+      uploadForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        const input = uploadForm.querySelector('input[type="file"]');
+
+        for (const file of input.files) {
+          formData.append("files", file); // use the same field name
+        }
+
+        uploadStatus.textContent = "Uploading...";
+
+        const res = await fetch("/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const result = await res.json();
+        uploadStatus.textContent = result.message || "Upload complete!";
+      });
+
+      // Handle query
+      const queryForm = document.getElementById("queryForm");
+      const answerEl = document.getElementById("answer");
+      const sourcesEl = document.getElementById("sources");
+
+      queryForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const question = document.getElementById("questionInput").value;
+        answerEl.textContent = "Thinking...";
+        sourcesEl.innerHTML = "";
+
+        const res = await fetch("/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question }),
+        });
+
+        const result = await res.json();
+        answerEl.textContent = result.answer;
+        result.sources.forEach((src) => {
+          const li = document.createElement("li");
+          li.textContent = src;
+          sourcesEl.appendChild(li);
+        });
+      });
+    </script>
+  </body>
+</html>

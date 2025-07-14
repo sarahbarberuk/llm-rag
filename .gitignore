@@ -45,3 +45,6 @@ migrations/
 # contents of vectordb folder
 vectordb/*
 !vectordb/.gitkeep
+# contents of data folder
+data/*
+!data/.gitkeep
