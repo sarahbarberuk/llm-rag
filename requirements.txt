@@ -9,3 +9,4 @@ uvicorn
 python-dotenv
 pypdf
 tiktoken
+python-multipart
